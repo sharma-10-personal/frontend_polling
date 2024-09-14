@@ -1,69 +1,66 @@
+/* StudentPage.css */
+
+/* General styles */
 .student-page {
     padding: 20px;
     font-family: Arial, sans-serif;
-  }
-  
-  .student-page__join-section {
+}
+
+.student-page__join-section {
     margin-bottom: 20px;
-  }
-  
-  .student-page__join-section input {
+}
+
+.student-page__join-section input {
     padding: 10px;
     font-size: 16px;
-  }
-  
-  .student-page__join-section button {
+}
+
+.student-page__join-section button {
     padding: 10px 20px;
     font-size: 16px;
     margin-left: 10px;
-  }
-  
-  .student-page__poll {
+}
+
+.student-page__poll {
     margin-top: 20px;
-  }
-  
-  .student-page__options {
+}
+
+.student-page__options {
     display: flex;
     flex-direction: column;
     gap: 10px; /* Adds space between buttons */
-  }
-  
-  .student-page__option-button {
+}
+
+/* Option button styles */
+.option-button2 {
     padding: 10px 20px;
     font-size: 16px;
-    cursor: pointer;
+    margin-bottom: 5px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-    transition: background-color 0.3s, transform 0.3s;
-  }
-  
-  .student-page__option-button:hover {
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    color: black;
+}
+
+.option-button2:hover {
     background-color: #e0e0e0;
-    transform: scale(1.05);
-  }
-  
-  .student-page__option-button:disabled {
+}
+
+.option-button2.selected {
+    background-color: #4caf50; /* Green background for selected option */
+    color: white; /* White text for better contrast */
+}
+
+.option-button2:disabled {
     background-color: #d0d0d0;
     cursor: not-allowed;
-  }
-  
-  .student-page__results {
-    margin-top: 20px;
-  }
-  .options-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Adjust the gap as needed */
-  }
-  
-  .option-button {
-    padding: 10px 20px; /* Adjust padding as needed */
-    font-size: 16px; /* Adjust font size as needed */
-    margin-bottom: 5px; /* Optional: Add some margin at the bottom */
-    border: 1px solid #ccc; /* Optional: Add a border */
-    border-radius: 4px; /* Optional: Add rounded corners */
-    background-color: #1f6ea3; /* Optional: Add background color */
-    cursor: pointer; /* Change cursor to pointer */
-    transition: background-color 0.3s; /* Smooth transition for background color */
-  }
+}
+
+/* Timer style */
+.timer {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}

@@ -69,7 +69,7 @@ const StudentPoll = () => {
           </button>
         </div>
       ) : (
-        <h3>No active poll.</h3>
+        <h3>Wait for teacher to ask questions </h3>
       )}
 
       {results && (

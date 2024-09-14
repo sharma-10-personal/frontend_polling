@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import "./StudentPage.css";
+
 // Connect to the backend Socket.IO server
 const socket = io("http://localhost:8000"); // Replace with your backend URL
 
@@ -9,31 +10,57 @@ const StudentPage = () => {
   const [results, setResults] = useState(null);
   const [answer, setAnswer] = useState("");
   const [studentName, setStudentName] = useState("");
-  const [hasSubmitted, setHasSubmitted] = useState(false); // Track if the student has submitted an answer
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const [timer, setTimer] = useState(60);
+  const [isJoined, setIsJoined] = useState(false);
+  const [pollClosed, setPollClosed] = useState(false); // Track if the poll is closed
+  const [pollError, setPollError] = useState("");
+
+  const intervalRef = useRef(null);
 
   useEffect(() => {
-    // Listen for new polls
     socket.on("new_poll", (pollData) => {
-      setPoll(pollData);
-      setResults(null); // Reset results for new poll
-      setHasSubmitted(false); // Reset submission status for new poll
+      if (isJoined) {
+        setPoll(pollData);
+        setResults(null);
+        setHasSubmitted(false);
+        setPollClosed(false); // Reset pollClosed status
+
+        setTimer(pollData.timerDuration || 60);
+
+        intervalRef.current = setInterval(() => {
+          setTimer((prev) => (prev > 0 ? prev - 1 : 0));
+        }, 1000);
+      }
     });
 
-    // Listen for poll results
     socket.on("poll_results", (resultData) => {
       setResults(resultData);
+    });
+
+    socket.on("poll_closed", () => {
+      setPollClosed(true); // Set pollClosed status when poll is closed
+      clearInterval(intervalRef.current); // Stop the timer
     });
 
     return () => {
       socket.off("new_poll");
       socket.off("poll_results");
+      socket.off("poll_closed");
+      clearInterval(intervalRef.current);
     };
-  }, []);
+  }, [isJoined]);
 
   const submitAnswer = () => {
-    if (poll && answer && !hasSubmitted) {
+    if (!poll) {
+      setPollError("No active poll available.");
+      return;
+    }
+
+    if (answer && !hasSubmitted && !pollClosed) {
       socket.emit("submit_answer", answer);
-      setHasSubmitted(true); // Mark as submitted
+      setHasSubmitted(true);
+      clearInterval(intervalRef.current);
     }
   };
 
@@ -41,63 +68,72 @@ const StudentPage = () => {
     if (studentName) {
       socket.emit("join_student", studentName);
       alert(`Joined as ${studentName}`);
+      setStudentName("");
+      setIsJoined(true);
+      setPoll(null);
+      setResults(null);
+      setHasSubmitted(false);
+      setPollError("");
     }
   };
 
-  // Function to get percentage for each option from results
   const getOptionPercentage = (option) => {
     if (!results || !results.results) return "0%";
     return results.results[option]?.percentage || "0%";
   };
 
   return (
-    <div>
+    <div className="student-page">
       <h1>Student Poll</h1>
 
-      {/* Input for joining as a student */}
-      <div>
-        <input
-          type="text"
-          placeholder="Enter your name"
-          value={studentName}
-          onChange={(e) => setStudentName(e.target.value)}
-        />
-        <button onClick={joinAsStudent}>Join as Student</button>
-      </div>
+      {!isJoined && (
+        <div className="student-page__join-section">
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={studentName}
+            onChange={(e) => setStudentName(e.target.value)}
+          />
+          <button onClick={joinAsStudent}>Join as Student</button>
+        </div>
+      )}
 
-      {/* Display the poll if there's an active one */}
-      {poll ? (
-        <div>
-          <h2>{poll.question}</h2>
-          <div className="options-container">
-            {poll.options.map((option, index) => (
+      {isJoined && (
+        <>
+          {poll ? (
+            <div className="student-page__poll">
+              <h2>{poll.question}</h2>
+              <div className="student-page__options">
+                {poll.options.map((option, index) => (
+                  <button
+                    key={index}
+                    onClick={() => !hasSubmitted && setAnswer(option)}
+                    disabled={hasSubmitted || timer === 0 || pollClosed}
+                    className={`option-button2 ${
+                      answer === option ? "selected" : ""
+                    }`}
+                  >
+                    {option} {results ? `(${getOptionPercentage(option)})` : ""}
+                  </button>
+                ))}
+              </div>
               <button
-                key={index}
-                onClick={() => !hasSubmitted && setAnswer(option)}
-                disabled={hasSubmitted}
-                className={`option-button ${
-                  answer === option ? "selected" : ""
-                }`}
+                onClick={submitAnswer}
+                disabled={hasSubmitted || timer === 0 || pollClosed}
               >
-                {option} {results ? `(${getOptionPercentage(option)})` : ""}
+                Submit Answer
               </button>
-            ))}
-          </div>
-          <button onClick={submitAnswer} disabled={hasSubmitted}>
-            Submit Answer
-          </button>
-        </div>
-      ) : (
-        <h3>No active poll.</h3>
+              <div className="timer">Time remaining: {timer}s</div>
+            </div>
+          ) : (
+            <h3>Wait for teacher to ask questions ...</h3>
+          )}
+        </>
       )}
 
-      {/* Display the poll results if available */}
-      {results && (
-        <div>
-          <h3>Poll Results:</h3>
-          <pre>{JSON.stringify(results, null, 2)}</pre>
-        </div>
-      )}
+      {pollError && <div className="error-message">{pollError}</div>}
+
+      {results && <div className="student-page__results"></div>}
     </div>
   );
 };
