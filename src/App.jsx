@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import TeacherPage from "./TeacherPage";
-import StudentPage from "./StudentPage";
+import TeacherPage from "./components/TeacherPage";
+import StudentPage from "./components/StudentPage";
 import Navigation from "../src/components/Navigation"; // Import Navigation from a separate file
 
 import "./App.css"; // Import the CSS file
