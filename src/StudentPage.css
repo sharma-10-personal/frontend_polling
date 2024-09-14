@@ -1,0 +1,54 @@
+.student-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .student-page__join-section {
+    margin-bottom: 20px;
+  }
+  
+  .student-page__join-section input {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .student-page__join-section button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-left: 10px;
+  }
+  
+  .student-page__poll {
+    margin-top: 20px;
+  }
+  
+  .student-page__options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adds space between buttons */
+  }
+  
+  .student-page__option-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  
+  .student-page__option-button:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+  }
+  
+  .student-page__option-button:disabled {
+    background-color: #d0d0d0;
+    cursor: not-allowed;
+  }
+  
+  .student-page__results {
+    margin-top: 20px;
+  }
+  

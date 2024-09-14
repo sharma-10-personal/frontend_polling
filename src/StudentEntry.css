@@ -1,0 +1,35 @@
+.entry-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .entry-container h1 {
+    margin-bottom: 20px;
+  }
+  
+  .entry-container input {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    width: 300px;
+  }
+  
+  .entry-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .entry-container button:hover {
+    background-color: #0056b3;
+  }
+  

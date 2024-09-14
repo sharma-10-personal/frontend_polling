@@ -1,0 +1,77 @@
+.teacher-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #e9ecef; /* Light gray background */
+    padding: 20px;
+  }
+  
+  .card {
+    background: #ffffff; /* White background for card */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    width: 100%;
+    border: 1px solid #dee2e6; /* Subtle border */
+  }
+  
+  h1 {
+    margin-bottom: 24px;
+    font-size: 28px;
+    color: #343a40; /* Dark gray color for text */
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #495057; /* Medium gray color */
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da; /* Light border color */
+    border-radius: 8px;
+    font-size: 16px;
+    color: #495057; /* Text color */
+  }
+  
+  input[type="text"]:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none;
+  }
+  
+  .option-group {
+    margin-bottom: 15px;
+  }
+  
+  button {
+    background-color: #007bff; /* Blue background color */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+  }
+  
+  button:active {
+    background-color: #004080; /* Even darker blue when clicked */
+  }
+  
