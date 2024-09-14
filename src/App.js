@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import TeacherPage from "./TeacherPage";
 import StudentPage from "./StudentPage";
+
 import "./App.css"; // Import the CSS file
 
 const Navigation = () => {

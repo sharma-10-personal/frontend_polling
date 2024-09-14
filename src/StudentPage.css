@@ -51,4 +51,19 @@
   .student-page__results {
     margin-top: 20px;
   }
+  .options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adjust the gap as needed */
+  }
   
+  .option-button {
+    padding: 10px 20px; /* Adjust padding as needed */
+    font-size: 16px; /* Adjust font size as needed */
+    margin-bottom: 5px; /* Optional: Add some margin at the bottom */
+    border: 1px solid #ccc; /* Optional: Add a border */
+    border-radius: 4px; /* Optional: Add rounded corners */
+    background-color: #1f6ea3; /* Optional: Add background color */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+  }

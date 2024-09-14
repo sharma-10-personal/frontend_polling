@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
-
+import "./StudentPage.css";
 // Connect to the backend Socket.IO server
 const socket = io("http://localhost:8000"); // Replace with your backend URL
 
@@ -69,12 +69,15 @@ const StudentPage = () => {
       {poll ? (
         <div>
           <h2>{poll.question}</h2>
-          <div>
+          <div className="options-container">
             {poll.options.map((option, index) => (
               <button
                 key={index}
                 onClick={() => !hasSubmitted && setAnswer(option)}
                 disabled={hasSubmitted}
+                className={`option-button ${
+                  answer === option ? "selected" : ""
+                }`}
               >
                 {option} {results ? `(${getOptionPercentage(option)})` : ""}
               </button>

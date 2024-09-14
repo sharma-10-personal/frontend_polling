@@ -9,12 +9,12 @@ const LoaderPage = () => {
     const socket = io("http://localhost:8000"); // Replace with your backend URL
 
     // Redirect to StudentPoll when a poll is available
-    socket.on("new_poll", () => {
-      navigate("/poll");
+    socket.on("create_poll", () => {
+      navigate("/polling");
     });
 
     return () => {
-      socket.off("new_poll");
+      socket.off("create_poll");
     };
   }, [navigate]);
 
